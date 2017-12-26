@@ -19,10 +19,8 @@ class AdjMatrix{
 private:
         vector<DataType> vList ;//点的列表
         int **edge;//边的二维数组
-
         const int MaxWeight ;
         int MaxVertices ;
-        vector <DataType > ::iterator it ;//迭代器
         int numOfEdges ;//边数
 
 public:
@@ -33,14 +31,13 @@ public:
         for (int i = 0; i < MaxVertices; ++i) {
             edge[i] = new int [MaxVertices] ;
         }
-        it = vList.begin() ;
+        //it = vList.begin() ;
         MaxVertices = 8 ;//8个点
         numOfEdges = 0 ;//0条边
     }
     ~AdjMatrix() {
         numOfEdges = 0 ;
-        for (int i = 0; i < MaxVertices; i++)
-        {
+        for (int i = 0; i < MaxVertices; i++) {
             delete[] edge[i];
             edge[i] = nullptr;
         }
@@ -61,6 +58,15 @@ public:
     int GetFirstVex(int v) ;
 
     int GetNextVex(int v1, int v2) ;
+
+    int **GetEdge() ;//临接矩阵
+
+    vector <DataType > Getvec() ;//点的向量集合
+
+    int GetMaxWeight() ;//最大权值
+
+    int GetNumOfEdges() ;//得到边的数目
+
 
 
     //连通图G以v为初始顶点、访问操作为Visit（）的深度优先遍历

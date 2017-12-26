@@ -48,6 +48,10 @@ public:
         numOfVerts = 0 ;
     }
 
+    int GetVerx() ;
+
+    int GetEdge() ;
+
     void AdjInitiate() ;
 
     void InsertVertex(int i, DataType vertex) ;

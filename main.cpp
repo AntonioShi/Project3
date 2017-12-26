@@ -2,6 +2,7 @@
 #include <queue>
 #include "AdjMatrix.h"
 #include "AdjList.h"
+#include "Prim.h"
 
 using namespace std ;
 
@@ -28,16 +29,24 @@ int main() {
     cout << "\n邻接矩阵广度优先遍历" << endl ;
     g1.BroadFirstSearch(Visit) ;
 
-    cout << endl ;
+    cout << endl << endl ;
 
     AdjList graph ;
     DataType v[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
     graph.CreateGraph(v, 8, rcw, 8) ;
 
     graph.Display() ;
-    cout << "\n邻接链表的深度优先遍历" << endl ;
+    cout << "邻接链表的深度优先遍历" << endl ;
     graph.DepthFirstSearch(Visit) ;
     cout << "\n邻接链表的广度优先遍历" << endl ;
     graph.BroadFirstSearch(Visit) ;
+
+    cout << endl << endl ;
+    MinSpanTree closeVertex[8] ;
+    Prim(g1, closeVertex) ;
+    cout << "初始顶点 = " << closeVertex[0].vertex << endl;
+    for (int i = 1; i < 8; ++i) {
+        cout << "顶点 = " << closeVertex[i].vertex << "   边的权值 = " << closeVertex[i].weight << endl ;
+    }
     return 0;
 }

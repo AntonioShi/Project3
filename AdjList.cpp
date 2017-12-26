@@ -7,50 +7,9 @@
 
 using namespace std;
 
-
-
-void AdjList::DeleteEdge(int v1, int v2) {
-    list<Edge>::iterator p;
-
-    p = adjGraph[v1].adjEdge.begin();
-
-    while (p != adjGraph[v1].adjEdge.end()) {
-        if (p->arcHead == v2) {
-            adjGraph[v1].adjEdge.erase(p);
-            break;
-        }
-        p++;
-    }
-}
-
-void AdjList::AdjDestroy() {
-    int i;
-    list<Edge>::iterator p, q;
-
-    for (i = 0; i < numOfVerts; i++) {
-        p = adjGraph[i].adjEdge.begin();
-        while (p != adjGraph[i].adjEdge.end()) {
-            q = p;
-            p++;
-            adjGraph[i].adjEdge.erase(q);
-
-        }
-    }
-}
-
-void AdjList::CreateGraph(DataType *v, int n, RawColWeight *d, int e) {
-    for (int i = 0; i < n; ++i) {
-        InsertVertex(i, v[i]);
-    }
-    for (int j = 0; j < e; ++j) {
-        InsertEdge(d[j].raw, d[j].col, d[j].weight);//
-    }
-    AdjInitiate() ;
-}
-
 void AdjList::AdjInitiate() {
 
-    for (int i = 0; i < numOfVerts; ++i) {
+    for (int i = 0; i < MaxVertices; ++i) {
         adjGraph[i].source = i;//弧头下标
     }
 }
@@ -90,25 +49,19 @@ void AdjList::InsertEdge(int v1, int v2, int weight) {
     numOfEdges++;
 }
 
-void AdjList::Display() {
+
+void AdjList::DeleteEdge(int v1, int v2) {
     list<Edge>::iterator p;
-    printf("顶点集合为：");
-    for (int i = 0; i < numOfVerts; ++i) {
-        printf("%c ", adjGraph[i].data);
-    }
-    printf("\n");
-    printf("权值集合：\n");
-    for (int i = 0; i < numOfVerts; ++i) {
-        p = adjGraph[i].adjEdge.begin();
-        while (p != adjGraph[i].adjEdge.end()) {//while
-            cout << setw(4) << p->weight;
-            p++;
+
+    p = adjGraph[v1].adjEdge.begin();
+
+    while (p != adjGraph[v1].adjEdge.end()) {
+        if (p->arcHead == v2) {
+            adjGraph[v1].adjEdge.erase(p);
+            break;
         }
+        p++;
     }
-    /*
-     *     RawColWeight rcw[] = {{0,1,10}, {0,4,20}, {1,3,30}, {2,1,40},
-                          {3,2,50}, {1,4,30}, {2,3,40}, {3,4,50}};
-     */
 }
 
 int AdjList::GetFirstVex(int v) {
@@ -146,6 +99,49 @@ int AdjList::GetNextVex(int v1, int v2) {
         return -1;
 }
 
+void AdjList::AdjDestroy() {
+    int i;
+    list<Edge>::iterator p, q;
+
+    for (i = 0; i < numOfVerts; i++) {
+        p = adjGraph[i].adjEdge.begin();
+        while (p != adjGraph[i].adjEdge.end()) {
+            q = p;
+            p++;
+            adjGraph[i].adjEdge.erase(q);
+
+        }
+    }
+}
+
+void AdjList::CreateGraph(DataType *v, int n, RawColWeight *d, int e) {
+    for (int i = 0; i < n; ++i) {
+        InsertVertex(i, v[i]);
+    }
+    for (int j = 0; j < n; ++j) {
+        InsertEdge(d[j].raw, d[j].col, d[j].weight);//
+    }
+
+}
+
+void AdjList::Display() {
+    list<Edge>::iterator p;
+    printf("顶点集合为：");
+    for (int i = 0; i < numOfVerts; ++i) {
+        printf("%c ", adjGraph[i].data);
+    }
+    printf("\n");
+    printf("权值集合：\n");
+    for (int i = 0; i < numOfVerts; ++i) {
+        p = adjGraph[i].adjEdge.begin();
+        while (p != adjGraph[i].adjEdge.end()) {
+            cout << setw(4) << p->weight;
+            p++;
+        }
+    }
+    cout << endl ;
+}
+
 void AdjList::DepthFSearch(int v, int *visited, void (*Visit)(DataType)) {
     Visit(adjGraph[v].data);
     visited[v] = 1;
@@ -171,7 +167,7 @@ void AdjList::DepthFirstSearch(void (*Visit)(DataType)) {
         }
 
     }
-    delete[] visited ;
+    //delete visited ;
 }
 
 void AdjList::BroadFSearch(int v, int *visited, void (*Visit)(DataType)) {
@@ -210,6 +206,14 @@ void AdjList::BroadFirstSearch(void (*Visit)(DataType)) {
         if (!visited[i])//未访问
             BroadFSearch(i, visited, Visit);//可耻的调用连通图的广度优先，嘿嘿
     }
-    delete[] visited;
+    delete visited;
+}
+
+int AdjList::GetVerx() {
+    return numOfVerts;
+}
+
+int AdjList::GetEdge() {
+    return numOfEdges;
 }
 

@@ -176,4 +176,23 @@ void AdjMatrix::Display() {
     }
 }
 
+int **AdjMatrix::GetEdge() {
+    return edge;
+}
+
+int AdjMatrix::GetMaxWeight() {
+    return MaxWeight;
+}
+
+
+int AdjMatrix::GetNumOfEdges() {
+    return numOfEdges   ;
+}
+
+
+vector<DataType> AdjMatrix::Getvec() {
+    return vector<DataType>(vList);
+}
+
+
 
