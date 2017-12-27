@@ -4,6 +4,12 @@
 #include "AdjList.h"
 #include "Prim.h"
 
+/*
+ * 注意啦小伙伴们
+ * 无向带权图的最短路径就是最小生成树
+ * 算法有 prim 和 克鲁斯卡尔
+ * 有向带权图的最短路径
+ */
 using namespace std ;
 
 void Visit(DataType it) {
@@ -14,12 +20,22 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     AdjMatrix g1;
     vector <DataType > a ;
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 7; ++i) {
         a.push_back('A' + i) ;
     }
-    RawColWeight rcw[] = {{0,1,10}, {0,4,20}, {1,3,30}, {2,1,40},
-                          {3,2,50}, {1,4,30}, {2,3,40}, {3,4,50}};
-    int n = 8, e = 8;
+    RawColWeight rcw[] = {{0,1,50}, {1,0,50},
+                          {0,2,60}, {2,0,60},
+                          {1,3,65}, {3,1,65},
+                          {1,4,40}, {4,1,40},
+                          {2,3,52}, {3,2,52},
+                          {2,6,45}, {6,2,45},
+                          {3,4,50}, {4,3,50},
+                          {3,5,30}, {5,3,30},
+                          {3,6,42}, {6,3,42},
+                          {4,5,70}, {5,4,70},
+                          {5,6,50}, {6,5,50}
+    };
+    int n = 7, e = 22;
     g1.CreatGraph(a, rcw, e);
 
     g1.Display() ;
@@ -33,7 +49,7 @@ int main() {
 
     AdjList graph ;
     DataType v[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
-    graph.CreateGraph(v, 8, rcw, 8) ;
+    graph.CreateGraph(v, n, rcw, e) ;
 
     graph.Display() ;
     cout << "邻接链表的深度优先遍历" << endl ;
@@ -41,11 +57,12 @@ int main() {
     cout << "\n邻接链表的广度优先遍历" << endl ;
     graph.BroadFirstSearch(Visit) ;
 
+
     cout << endl << endl ;
     MinSpanTree closeVertex[8] ;
     Prim(g1, closeVertex) ;
     cout << "初始顶点 = " << closeVertex[0].vertex << endl;
-    for (int i = 1; i < 8; ++i) {
+    for (int i = 1; i < 7; ++i) {
         cout << "顶点 = " << closeVertex[i].vertex << "   边的权值 = " << closeVertex[i].weight << endl ;
     }
     return 0;

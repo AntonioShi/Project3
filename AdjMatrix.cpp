@@ -191,7 +191,7 @@ int AdjMatrix::GetNumOfEdges() {
 
 
 vector<DataType> AdjMatrix::Getvec() {
-    return vector<DataType>(vList);
+    return vList;
 }
 
 
