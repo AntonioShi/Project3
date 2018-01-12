@@ -4,11 +4,10 @@
 #include "AdjList.h"
 #include "Prim.h"
 
-/*
- * 注意啦小伙伴们
- * 无向带权图的最短路径就是最小生成树
- * 算法有 prim 和 克鲁斯卡尔
- * 有向带权图的最短路径
+/* 带权图分为有向和无向，
+ * 无向图的最短路径又叫做最小生成树，
+ * 有prime算法和kruskal算法；
+ * 有向图的最短路径算法有dijkstra算法和floyd算法。
  */
 using namespace std ;
 

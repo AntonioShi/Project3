@@ -3,5 +3,14 @@ project(Project3)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp AdjMatrix.cpp AdjMatrix.h AdjList.cpp AdjList.h RawColWeight.h Prim.h )
-add_executable(Project3 ${SOURCE_FILES} AdjMatrix.cpp AdjMatrix.h AdjList.cpp AdjList.h RawColWeight.h Prim.h)
+set(SOURCE_FILES
+    AdjList.cpp
+    AdjList.h
+    AdjMatrix.cpp
+    AdjMatrix.h
+    CMakeLists.txt
+    main.cpp
+    Prim.h
+    RawColWeight.h)
+
+add_executable(Project3 ${SOURCE_FILES})
